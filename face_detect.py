@@ -12,6 +12,8 @@ c = VideoStream(src=0).start()         		 #For webcam, comment it if using Raspb
 #c = VideoStream(usePiCamera=True).start()       #For Raspberry Pi Camera module, comment it if using webcam
 time.sleep(2.0)
 
+count_image=0  #Counts number of frames/images captured. 
+
 while True:
 
     frame = c.read()
@@ -31,6 +33,11 @@ while True:
 
     if key == ord("q"):
         break
+    if key % 256 == 32 :  # If spacebar is pressed.
+        i_name = "OpenCV_frame{}.png".format(count_image)
+        cv2.imwrite(i_name,frame)
+        image_count +=1
 
+        
 cv2.destroyAllWindows()
 c.stop()
